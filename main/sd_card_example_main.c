@@ -11,14 +11,16 @@
 #include <string.h>
 #include <sys/unistd.h>
 #include <sys/stat.h>
+#include <dirent.h>
 #include "esp_vfs_fat.h"
 #include "sdmmc_cmd.h"
 #include "sd_test_io.h"
+#include "sd_card.h"
+#include "esp_mac.h"
 #if SOC_SDMMC_IO_POWER_EXTERNAL
 #include "sd_pwr_ctrl_by_on_chip_ldo.h"
 #endif
 
-#define EXAMPLE_MAX_CHAR_SIZE    64
 
 static const char *TAG = "example";
 
@@ -55,41 +57,62 @@ pin_configuration_t config = {
 #define PIN_NUM_CLK   GPIO_NUM_5
 #define PIN_NUM_CS    GPIO_NUM_7
 
-static esp_err_t s_example_write_file(const char *path, char *data)
-{
-    ESP_LOGI(TAG, "Opening file %s", path);
-    FILE *f = fopen(path, "w");
-    if (f == NULL) {
-        ESP_LOGE(TAG, "Failed to open file for writing");
-        return ESP_FAIL;
-    }
-    fprintf(f, data);
-    fclose(f);
-    ESP_LOGI(TAG, "File written");
+file_info_t files[MAX_FILES];
+int file_count = 0;
 
-    return ESP_OK;
+void getSongByIndex(int index, file_info_t* prevSong, file_info_t* curSong, file_info_t* nextSong){
+    if(index == 0){
+        *prevSong = files[file_count-1];
+        *curSong = files[0];
+        *nextSong = files[1];
+    }else if(index == file_count-1){
+        *prevSong = files[file_count-2];
+        *curSong = files[file_count-1];
+        *nextSong = files[0];
+    }else{
+        *prevSong = files[index-1];
+        *curSong = files[index];
+        *nextSong = files[index+1];
+    }
 }
 
-static esp_err_t s_example_read_file(const char *path)
-{
-    ESP_LOGI(TAG, "Reading file %s", path);
-    FILE *f = fopen(path, "r");
-    if (f == NULL) {
-        ESP_LOGE(TAG, "Failed to open file for reading");
-        return ESP_FAIL;
+void list_files(const char *path, file_info_t files[MAX_FILES], int *file_count) {
+    DIR *dir = opendir(path);
+    if (dir == NULL) {
+        ESP_LOGE(TAG, "Failed to open directory: %s", path);
+        return;
     }
-    char line[EXAMPLE_MAX_CHAR_SIZE];
-    fgets(line, sizeof(line), f);
-    fclose(f);
 
-    // strip newline
-    char *pos = strchr(line, '\n');
-    if (pos) {
-        *pos = '\0';
+    struct dirent *entry;
+    *file_count = 0;
+    while ((entry = readdir(dir)) != NULL && *file_count < MAX_FILES) {
+        if (entry->d_type == DT_REG) { // Only process regular files
+            snprintf(files[*file_count].name, sizeof(files[*file_count].name), "%s/%s", path, entry->d_name);
+            struct stat st;
+            if (stat(files[*file_count].name, &st) == 0) {
+                files[*file_count].time = st.st_mtime;
+
+                FILE *f = fopen(files[*file_count].name, "r");
+                if (f != NULL) {
+                    fread(files[*file_count].content, 1, MAX_CONTENT_SIZE, f);
+                    fclose(f);
+                }
+            }
+            (*file_count)++;
+        }
     }
-    ESP_LOGI(TAG, "Read from file: '%s'", line);
+    closedir(dir);
 
-    return ESP_OK;
+    // Sort files by time
+    for (int i = 0; i < *file_count - 1; i++) {
+        for (int j = i + 1; j < *file_count; j++) {
+            if (files[i].time > files[j].time) {
+                file_info_t temp = files[i];
+                files[i] = files[j];
+                files[j] = temp;
+            }
+        }
+    }
 }
 
 void app_main(void)
@@ -184,71 +207,20 @@ void app_main(void)
 
     // Use POSIX and C standard library functions to work with files.
 
-    // First create a file.
-    const char *file_hello = MOUNT_POINT"/hello.txt";
-    char data[EXAMPLE_MAX_CHAR_SIZE];
-    snprintf(data, EXAMPLE_MAX_CHAR_SIZE, "%s %s!\n", "Hello", card->cid.name);
-    ret = s_example_write_file(file_hello, data);
-    if (ret != ESP_OK) {
-        return;
+
+
+    list_files(MOUNT_POINT, files, &file_count);
+
+    ESP_LOGI(TAG, "Found %d files:", file_count);
+    for (int i = 0; i < file_count; i++) {
+        ESP_LOGI(TAG, "File %d: %s, Time: %s", i + 1, files[i].name, ctime(&files[i].time));
     }
 
-    const char *file_foo = MOUNT_POINT"/foo.txt";
-
-    // Check if destination file exists before renaming
-    struct stat st;
-    if (stat(file_foo, &st) == 0) {
-        // Delete it if it exists
-        unlink(file_foo);
-    }
-
-    // Rename original file
-    ESP_LOGI(TAG, "Renaming file %s to %s", file_hello, file_foo);
-    if (rename(file_hello, file_foo) != 0) {
-        ESP_LOGE(TAG, "Rename failed");
-        return;
-    }
-
-    ret = s_example_read_file(file_foo);
-    if (ret != ESP_OK) {
-        return;
-    }
-
-    // Format FATFS
-#ifdef CONFIG_EXAMPLE_FORMAT_SD_CARD
-    ret = esp_vfs_fat_sdcard_format(mount_point, card);
-    if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to format FATFS (%s)", esp_err_to_name(ret));
-        return;
-    }
-
-    if (stat(file_foo, &st) == 0) {
-        ESP_LOGI(TAG, "file still exists");
-        return;
-    } else {
-        ESP_LOGI(TAG, "file doesn't exist, formatting done");
-    }
-#endif // CONFIG_EXAMPLE_FORMAT_SD_CARD
-
-    const char *file_nihao = MOUNT_POINT"/nihao.txt";
-    memset(data, 0, EXAMPLE_MAX_CHAR_SIZE);
-    snprintf(data, EXAMPLE_MAX_CHAR_SIZE, "%s %s!\n", "Nihao", card->cid.name);
-    ret = s_example_write_file(file_nihao, data);
-    if (ret != ESP_OK) {
-        return;
-    }
-
-    //Open file for reading
-    ret = s_example_read_file(file_nihao);
-    if (ret != ESP_OK) {
-        return;
-    }
-
-    // All done, unmount partition and disable SPI peripheral
+    // Unmount SD card and clean up
     esp_vfs_fat_sdcard_unmount(mount_point, card);
     ESP_LOGI(TAG, "Card unmounted");
 
-    //deinitialize the bus after all devices are removed
+    // Deinitialize the bus after all devices are removed
     spi_bus_free(host.slot);
 
     // Deinitialize the power control driver if it was used
