@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "sd_card",
-    "project_version":    "1",
+    "project_version":    "71f1c97-dirty",
     "project_path":       "D:/Users/14913/Downloads/sdspi",
     "idf_path":           "D:/v5.3.2/esp-idf",
     "build_dir":          "D:/Users/14913/Downloads/sdspi/build",
