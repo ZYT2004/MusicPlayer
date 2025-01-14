@@ -15,7 +15,8 @@ typedef struct {
     char content[MAX_CONTENT_SIZE];
 } file_info_t;
 
-void getSongByIndex(int index,file_info_t* prevSong, file_info_t* curSong, file_info_t* nextSong);
+void getSongByIndex(int index,char* prevName, file_info_t* curSong, char* nextName);
+void list_files(const char *path, file_info_t files[MAX_FILES], int *file_count);
 // Add your function declarations and definitions here
 
 #endif 

@@ -60,19 +60,19 @@ pin_configuration_t config = {
 file_info_t files[MAX_FILES];
 int file_count = 0;
 
-void getSongByIndex(int index, file_info_t* prevSong, file_info_t* curSong, file_info_t* nextSong){
+void getSongByIndex(int index, char* prevName, file_info_t* curSong, char* nextName){
     if(index == 0){
-        *prevSong = files[file_count-1];
+        strcpy(prevName, files[file_count-1].name);
         *curSong = files[0];
-        *nextSong = files[1];
+        strcpy(nextName, files[1].name);
     }else if(index == file_count-1){
-        *prevSong = files[file_count-2];
+        strcpy(prevName, files[file_count-2].name);
         *curSong = files[file_count-1];
-        *nextSong = files[0];
+        strcpy(nextName, files[0].name);
     }else{
-        *prevSong = files[index-1];
+        strcpy(prevName, files[index-1].name);
         *curSong = files[index];
-        *nextSong = files[index+1];
+        strcpy(nextName, files[index+1].name);
     }
 }
 
