@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/sd_card")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/music_player")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -234,11 +234,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_pcnt/cmake_install.cmake")
 endif()
 
@@ -309,7 +304,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/i2s/cmake_install.cmake")
+  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/i2stool/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

@@ -33,7 +33,6 @@ $<TARGET_FILE:__idf_esp_driver_usb_serial_jtag>
 $<TARGET_FILE:__idf_esp_vfs_console>
 $<TARGET_FILE:__idf_vfs>
 $<TARGET_FILE:__idf_fatfs>
-$<TARGET_FILE:__idf_sd_card>
 $<TARGET_FILE:__idf_esp_driver_gptimer>
 $<TARGET_FILE:__idf_esp_driver_i2s>
 $<TARGET_FILE:__idf_esp_driver_rmt>
@@ -42,5 +41,6 @@ $<TARGET_FILE:__idf_esp_driver_sdm>
 $<TARGET_FILE:__idf_esp_driver_i2c>
 $<TARGET_FILE:__idf_esp_driver_ledc>
 $<TARGET_FILE:__idf_driver>
-$<TARGET_FILE:__idf_i2s>
+$<TARGET_FILE:__idf_i2stool>
+$<TARGET_FILE:__idf_sd_card>
 $<TARGET_FILE:__idf_main>

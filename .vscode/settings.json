@@ -24,7 +24,8 @@
         "string.h": "c",
         "i2s.h": "c",
         "stdint.h": "c",
-        "esp_err.h": "c"
+        "esp_err.h": "c",
+        "minimp3.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

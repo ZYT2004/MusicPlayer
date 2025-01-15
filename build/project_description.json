@@ -1,15 +1,15 @@
 {
     "version":            "1.1",
-    "project_name":       "sd_card",
-    "project_version":    "0ebc551-dirty",
+    "project_name":       "music_player",
+    "project_version":    "bd2ad43-dirty",
     "project_path":       "D:/Users/14913/Downloads/sdspi",
     "idf_path":           "D:/v5.3.2/esp-idf",
     "build_dir":          "D:/Users/14913/Downloads/sdspi/build",
     "config_file":        "D:/Users/14913/Downloads/sdspi/sdkconfig",
     "config_defaults":    "D:/Users/14913/Downloads/sdspi/sdkconfig.defaults",
     "bootloader_elf":     "D:/Users/14913/Downloads/sdspi/build/bootloader/bootloader.elf",
-    "app_elf":            "sd_card.elf",
-    "app_bin":            "sd_card.bin",
+    "app_elf":            "music_player.elf",
+    "app_bin":            "music_player.bin",
     "build_type":         "flash_app",
     "git_revision":       "v5.3.2",
     "target":             "esp32c3",
@@ -25,8 +25,8 @@
         "COMPONENT_KCONFIGS_PROJBUILD" : "D:/v5.3.2/esp-idf/components/bootloader/Kconfig.projbuild;D:/v5.3.2/esp-idf/components/esp_app_format/Kconfig.projbuild;D:/v5.3.2/esp-idf/components/esp_rom/Kconfig.projbuild;D:/v5.3.2/esp-idf/components/esptool_py/Kconfig.projbuild;D:/v5.3.2/esp-idf/components/partition_table/Kconfig.projbuild;D:/Users/14913/Downloads/sdspi/components/sd_card/Kconfig.projbuild"
     },
     "common_component_reqs": [ "cxx", "newlib", "freertos", "esp_hw_support", "heap", "log", "soc", "hal", "esp_rom", "esp_common", "esp_system", "riscv" ],
-    "build_components" : [ "app_update", "bootloader", "bootloader_support", "cxx", "driver", "efuse", "esp_app_format", "esp_bootloader_format", "esp_common", "esp_driver_ana_cmpr", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_tsens", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_hw_support", "esp_mm", "esp_partition", "esp_pm", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_vfs_console", "esptool_py", "fatfs", "freertos", "hal", "heap", "i2s", "log", "main", "mbedtls", "newlib", "partition_table", "pthread", "riscv", "sd_card", "sdmmc", "soc", "spi_flash", "vfs", "wear_levelling", "" ],
-    "build_component_paths" : [ "D:/v5.3.2/esp-idf/components/app_update", "D:/v5.3.2/esp-idf/components/bootloader", "D:/v5.3.2/esp-idf/components/bootloader_support", "D:/v5.3.2/esp-idf/components/cxx", "D:/v5.3.2/esp-idf/components/driver", "D:/v5.3.2/esp-idf/components/efuse", "D:/v5.3.2/esp-idf/components/esp_app_format", "D:/v5.3.2/esp-idf/components/esp_bootloader_format", "D:/v5.3.2/esp-idf/components/esp_common", "D:/v5.3.2/esp-idf/components/esp_driver_ana_cmpr", "D:/v5.3.2/esp-idf/components/esp_driver_dac", "D:/v5.3.2/esp-idf/components/esp_driver_gpio", "D:/v5.3.2/esp-idf/components/esp_driver_gptimer", "D:/v5.3.2/esp-idf/components/esp_driver_i2c", "D:/v5.3.2/esp-idf/components/esp_driver_i2s", "D:/v5.3.2/esp-idf/components/esp_driver_ledc", "D:/v5.3.2/esp-idf/components/esp_driver_mcpwm", "D:/v5.3.2/esp-idf/components/esp_driver_parlio", "D:/v5.3.2/esp-idf/components/esp_driver_pcnt", "D:/v5.3.2/esp-idf/components/esp_driver_rmt", "D:/v5.3.2/esp-idf/components/esp_driver_sdio", "D:/v5.3.2/esp-idf/components/esp_driver_sdm", "D:/v5.3.2/esp-idf/components/esp_driver_sdmmc", "D:/v5.3.2/esp-idf/components/esp_driver_sdspi", "D:/v5.3.2/esp-idf/components/esp_driver_spi", "D:/v5.3.2/esp-idf/components/esp_driver_tsens", "D:/v5.3.2/esp-idf/components/esp_driver_uart", "D:/v5.3.2/esp-idf/components/esp_driver_usb_serial_jtag", "D:/v5.3.2/esp-idf/components/esp_hw_support", "D:/v5.3.2/esp-idf/components/esp_mm", "D:/v5.3.2/esp-idf/components/esp_partition", "D:/v5.3.2/esp-idf/components/esp_pm", "D:/v5.3.2/esp-idf/components/esp_ringbuf", "D:/v5.3.2/esp-idf/components/esp_rom", "D:/v5.3.2/esp-idf/components/esp_system", "D:/v5.3.2/esp-idf/components/esp_timer", "D:/v5.3.2/esp-idf/components/esp_vfs_console", "D:/v5.3.2/esp-idf/components/esptool_py", "D:/v5.3.2/esp-idf/components/fatfs", "D:/v5.3.2/esp-idf/components/freertos", "D:/v5.3.2/esp-idf/components/hal", "D:/v5.3.2/esp-idf/components/heap", "D:/Users/14913/Downloads/sdspi/components/i2s", "D:/v5.3.2/esp-idf/components/log", "D:/Users/14913/Downloads/sdspi/main", "D:/v5.3.2/esp-idf/components/mbedtls", "D:/v5.3.2/esp-idf/components/newlib", "D:/v5.3.2/esp-idf/components/partition_table", "D:/v5.3.2/esp-idf/components/pthread", "D:/v5.3.2/esp-idf/components/riscv", "D:/Users/14913/Downloads/sdspi/components/sd_card", "D:/v5.3.2/esp-idf/components/sdmmc", "D:/v5.3.2/esp-idf/components/soc", "D:/v5.3.2/esp-idf/components/spi_flash", "D:/v5.3.2/esp-idf/components/vfs", "D:/v5.3.2/esp-idf/components/wear_levelling", "" ],
+    "build_components" : [ "app_update", "bootloader", "bootloader_support", "cxx", "driver", "efuse", "esp_app_format", "esp_bootloader_format", "esp_common", "esp_driver_ana_cmpr", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_tsens", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_hw_support", "esp_mm", "esp_partition", "esp_pm", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_vfs_console", "esptool_py", "fatfs", "freertos", "hal", "heap", "i2stool", "log", "main", "mbedtls", "newlib", "partition_table", "pthread", "riscv", "sd_card", "sdmmc", "soc", "spi_flash", "vfs", "wear_levelling", "" ],
+    "build_component_paths" : [ "D:/v5.3.2/esp-idf/components/app_update", "D:/v5.3.2/esp-idf/components/bootloader", "D:/v5.3.2/esp-idf/components/bootloader_support", "D:/v5.3.2/esp-idf/components/cxx", "D:/v5.3.2/esp-idf/components/driver", "D:/v5.3.2/esp-idf/components/efuse", "D:/v5.3.2/esp-idf/components/esp_app_format", "D:/v5.3.2/esp-idf/components/esp_bootloader_format", "D:/v5.3.2/esp-idf/components/esp_common", "D:/v5.3.2/esp-idf/components/esp_driver_ana_cmpr", "D:/v5.3.2/esp-idf/components/esp_driver_dac", "D:/v5.3.2/esp-idf/components/esp_driver_gpio", "D:/v5.3.2/esp-idf/components/esp_driver_gptimer", "D:/v5.3.2/esp-idf/components/esp_driver_i2c", "D:/v5.3.2/esp-idf/components/esp_driver_i2s", "D:/v5.3.2/esp-idf/components/esp_driver_ledc", "D:/v5.3.2/esp-idf/components/esp_driver_mcpwm", "D:/v5.3.2/esp-idf/components/esp_driver_parlio", "D:/v5.3.2/esp-idf/components/esp_driver_pcnt", "D:/v5.3.2/esp-idf/components/esp_driver_rmt", "D:/v5.3.2/esp-idf/components/esp_driver_sdio", "D:/v5.3.2/esp-idf/components/esp_driver_sdm", "D:/v5.3.2/esp-idf/components/esp_driver_sdmmc", "D:/v5.3.2/esp-idf/components/esp_driver_sdspi", "D:/v5.3.2/esp-idf/components/esp_driver_spi", "D:/v5.3.2/esp-idf/components/esp_driver_tsens", "D:/v5.3.2/esp-idf/components/esp_driver_uart", "D:/v5.3.2/esp-idf/components/esp_driver_usb_serial_jtag", "D:/v5.3.2/esp-idf/components/esp_hw_support", "D:/v5.3.2/esp-idf/components/esp_mm", "D:/v5.3.2/esp-idf/components/esp_partition", "D:/v5.3.2/esp-idf/components/esp_pm", "D:/v5.3.2/esp-idf/components/esp_ringbuf", "D:/v5.3.2/esp-idf/components/esp_rom", "D:/v5.3.2/esp-idf/components/esp_system", "D:/v5.3.2/esp-idf/components/esp_timer", "D:/v5.3.2/esp-idf/components/esp_vfs_console", "D:/v5.3.2/esp-idf/components/esptool_py", "D:/v5.3.2/esp-idf/components/fatfs", "D:/v5.3.2/esp-idf/components/freertos", "D:/v5.3.2/esp-idf/components/hal", "D:/v5.3.2/esp-idf/components/heap", "D:/Users/14913/Downloads/sdspi/components/i2stool", "D:/v5.3.2/esp-idf/components/log", "D:/Users/14913/Downloads/sdspi/main", "D:/v5.3.2/esp-idf/components/mbedtls", "D:/v5.3.2/esp-idf/components/newlib", "D:/v5.3.2/esp-idf/components/partition_table", "D:/v5.3.2/esp-idf/components/pthread", "D:/v5.3.2/esp-idf/components/riscv", "D:/Users/14913/Downloads/sdspi/components/sd_card", "D:/v5.3.2/esp-idf/components/sdmmc", "D:/v5.3.2/esp-idf/components/soc", "D:/v5.3.2/esp-idf/components/spi_flash", "D:/v5.3.2/esp-idf/components/vfs", "D:/v5.3.2/esp-idf/components/wear_levelling", "" ],
     "build_component_info" : {
         "app_update": {
             "alias": "idf::app_update",
@@ -658,19 +658,19 @@
             "sources": [ "D:/v5.3.2/esp-idf/components/heap/heap_caps_base.c", "D:/v5.3.2/esp-idf/components/heap/heap_caps.c", "D:/v5.3.2/esp-idf/components/heap/heap_caps_init.c", "D:/v5.3.2/esp-idf/components/heap/multi_heap.c", "D:/v5.3.2/esp-idf/components/heap/tlsf/tlsf.c", "D:/v5.3.2/esp-idf/components/heap/port/memory_layout_utils.c", "D:/v5.3.2/esp-idf/components/heap/port/esp32c3/memory_layout.c" ],
             "include_dirs": [ "include" ]
         },
-        "i2s": {
-            "alias": "idf::i2s",
-            "target": "___idf_i2s",
+        "i2stool": {
+            "alias": "idf::i2stool",
+            "target": "___idf_i2stool",
             "prefix": "idf",
-            "dir": "D:/Users/14913/Downloads/sdspi/components/i2s",
+            "dir": "D:/Users/14913/Downloads/sdspi/components/i2stool",
             "type": "LIBRARY",
-            "lib": "__idf_i2s",
+            "lib": "__idf_i2stool",
             "reqs": [ "driver", "log" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "file": "D:/Users/14913/Downloads/sdspi/build/esp-idf/i2s/libi2s.a",
-            "sources": [ "D:/Users/14913/Downloads/sdspi/components/i2s/play.c" ],
+            "file": "D:/Users/14913/Downloads/sdspi/build/esp-idf/i2stool/libi2stool.a",
+            "sources": [ "D:/Users/14913/Downloads/sdspi/components/i2stool/play.c" ],
             "include_dirs": [ "." ]
         },
         "log": {
@@ -695,13 +695,13 @@
             "dir": "D:/Users/14913/Downloads/sdspi/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
-            "reqs": [ "sd_card", "i2s" ],
+            "reqs": [ "sd_card", "i2stool" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "D:/Users/14913/Downloads/sdspi/build/esp-idf/main/libmain.a",
             "sources": [ "D:/Users/14913/Downloads/sdspi/main/main.c" ],
-            "include_dirs": [ ".", "../components/sd_card", "../components/i2s" ]
+            "include_dirs": [ ".", "../components/sd_card", "../components/i2stool" ]
         },
         "mbedtls": {
             "alias": "idf::mbedtls",
@@ -785,7 +785,7 @@
             "dir": "D:/Users/14913/Downloads/sdspi/components/sd_card",
             "type": "LIBRARY",
             "lib": "__idf_sd_card",
-            "reqs": [ "fatfs", "sdmmc", "log" ],
+            "reqs": [ "fatfs", "sdmmc", "log", "i2stool" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
@@ -2112,18 +2112,18 @@
             "prefix": "idf",
             "dir": "D:/Users/14913/Downloads/sdspi/main",
             "lib": "__idf_main",
-            "reqs": [ "sd_card", "i2s" ],
+            "reqs": [ "sd_card", "i2stool" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
-            "include_dirs": [ ".", "../components/sd_card", "../components/i2s" ]
+            "include_dirs": [ ".", "../components/sd_card", "../components/i2stool" ]
         },
-        "i2s": {
-            "alias": "idf::i2s",
-            "target": "___idf_i2s",
+        "i2stool": {
+            "alias": "idf::i2stool",
+            "target": "___idf_i2stool",
             "prefix": "idf",
-            "dir": "D:/Users/14913/Downloads/sdspi/components/i2s",
-            "lib": "__idf_i2s",
+            "dir": "D:/Users/14913/Downloads/sdspi/components/i2stool",
+            "lib": "__idf_i2stool",
             "reqs": [ "driver", "log" ],
             "priv_reqs": [],
             "managed_reqs": [],
@@ -2136,7 +2136,7 @@
             "prefix": "idf",
             "dir": "D:/Users/14913/Downloads/sdspi/components/sd_card",
             "lib": "__idf_sd_card",
-            "reqs": [ "fatfs", "sdmmc", "log" ],
+            "reqs": [ "fatfs", "sdmmc", "log", "i2stool" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
