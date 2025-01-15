@@ -33,6 +33,7 @@ D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_usb_serial_jtag/libesp_d
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_vfs_console/libesp_vfs_console.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/vfs/libvfs.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/fatfs/libfatfs.a
+D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/libsd_card.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_gptimer/libesp_driver_gptimer.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_i2s/libesp_driver_i2s.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_rmt/libesp_driver_rmt.a
@@ -41,6 +42,5 @@ D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_sdm/libesp_driver_sdm.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_i2c/libesp_driver_i2c.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_ledc/libesp_driver_ledc.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/driver/libdriver.a
-D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_adc/libesp_adc.a
-D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/libsd_card.a
+D:/Users/14913/Downloads/sdspi/build/esp-idf/i2s/libi2s.a
 D:/Users/14913/Downloads/sdspi/build/esp-idf/main/libmain.a

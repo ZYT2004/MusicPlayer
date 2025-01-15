@@ -1,4 +1,4 @@
-# Install script for directory: D:/v5.3.2/esp-idf/examples/storage/sd_card/sdmmc/components/sd_card
+# Install script for directory: D:/Users/14913/Downloads/sdspi/components/sd_card
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

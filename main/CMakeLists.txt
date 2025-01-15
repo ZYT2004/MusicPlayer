@@ -1,6 +1,8 @@
-set(srcs "sd_card_example_main.c")
+set(srcs "main.c")
 
 idf_component_register(SRCS ${srcs}
                        INCLUDE_DIRS "."
-                       REQUIRES fatfs sd_card
+                                     "../components/sd_card"
+                                     "../components/i2s"
+                       REQUIRES sd_card i2s
                        WHOLE_ARCHIVE)

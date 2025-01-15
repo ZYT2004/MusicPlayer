@@ -234,6 +234,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_driver_pcnt/cmake_install.cmake")
 endif()
 
@@ -304,12 +309,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/esp_adc/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/sd_card/cmake_install.cmake")
+  include("D:/Users/14913/Downloads/sdspi/build/esp-idf/i2s/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

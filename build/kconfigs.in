@@ -1,6 +1,5 @@
 source "D:/v5.3.2/esp-idf/components/driver/Kconfig"
 source "D:/v5.3.2/esp-idf/components/efuse/Kconfig"
-source "D:/v5.3.2/esp-idf/components/esp_adc/Kconfig"
 source "D:/v5.3.2/esp-idf/components/esp_common/Kconfig"
 source "D:/v5.3.2/esp-idf/components/esp_driver_ana_cmpr/Kconfig"
 source "D:/v5.3.2/esp-idf/components/esp_driver_dac/Kconfig"

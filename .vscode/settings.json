@@ -8,7 +8,23 @@
         "board/esp32c3-builtin.cfg"
     ],
     "files.associations": {
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "typeinfo": "c",
+        "chrono": "c",
+        "dirent.h": "c",
+        "esp_vfs_fat.h": "c",
+        "sdmmc_cmd.h": "c",
+        "sd_test_io.h": "c",
+        "sd_card.h": "c",
+        "esp_mac.h": "c",
+        "play.h": "c",
+        "esp_log.h": "c",
+        "stdio.h": "c",
+        "stat.h": "c",
+        "string.h": "c",
+        "i2s.h": "c",
+        "stdint.h": "c",
+        "esp_err.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
