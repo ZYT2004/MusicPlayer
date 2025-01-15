@@ -71,7 +71,37 @@ void getSongByIndex(int index, char *prevName, file_info_t *curSong, char *nextN
         strcpy(nextName, files[index + 1].name);
     }
 }
+size_t parse_wav_header(FILE *f)
+{
+    uint8_t header[44]; // 假设 WAV 文件头为44字节
+    if (fread(header, 1, 44, f) != 44)
+    {
+        ESP_LOGE(TAG, "Failed to read WAV header");
+        return 0;
+    }
 
+    // 检查文件标识 "RIFF" 和 "WAVE"
+    if (memcmp(header, "RIFF", 4) != 0 || memcmp(&header[8], "WAVE", 4) != 0)
+    {
+        ESP_LOGE(TAG, "Invalid WAV file");
+        return 0;
+    }
+
+    // 提取采样率和通道数（确保与 I2S 配置匹配）
+    uint32_t sample_rate = *(uint32_t *)&header[24];
+    uint16_t channels = *(uint16_t *)&header[22];
+
+    ESP_LOGI(TAG, "Sample rate: %lu, Channels: %u", sample_rate, channels);
+
+    // 仅支持 44100 Hz, 2 通道的 WAV 文件
+    if (sample_rate != 44100 || channels != 2)
+    {
+        ESP_LOGE(TAG, "Unsupported WAV format");
+        return 0;
+    }
+
+    return 44; // 返回文件数据起始位置
+}
 size_t convert_wav_to_pcm(uint8_t *buffer, size_t bytes_read, int32_t *pcm_data)
 {
     size_t pcm_samples = bytes_read / (32 / 8);
@@ -86,7 +116,7 @@ size_t convert_wav_to_pcm(uint8_t *buffer, size_t bytes_read, int32_t *pcm_data)
 }
 void openFile(int index)
 {
-     ESP_LOGI("APP", "Starting I2S example");
+    ESP_LOGI("APP", "Starting I2S example");
     esp_err_t ret;
 
     // Options for mounting the filesystem.
@@ -184,58 +214,89 @@ void openFile(int index)
     // Use POSIX and C standard library functions to work with files.
 
     FILE *f = fopen(files[index].name, "r");
-    if (f != NULL)
+    if (f == NULL)
     {
-        fseek(f, 44, SEEK_SET);
+        ESP_LOGE(TAG, "Failed to open file: %s", files[index].name);
+        return;
+    }
 
-        size_t file_size = files[index].content_size;
+    // 读取 WAV 文件头并解析
+    size_t header_size = parse_wav_header(f);
+    if (header_size == 0)
+    {
+        ESP_LOGE(TAG, "Invalid WAV file format");
+        fclose(f);
+        return;
+    }
 
-        uint8_t *buffer = (uint8_t *)malloc(I2S_BUFFER_SIZE);
-        size_t bytes_read;
-        size_t total_bytes_read = 0;
+    // 获取文件大小
+    fseek(f, 0, SEEK_END);
+    size_t file_size = ftell(f);
+    fseek(f, header_size, SEEK_SET); // 跳过文件头
 
-        while (total_bytes_read < file_size)
+    ESP_LOGI(TAG, "File size: %zu, Data starts at: %zu", file_size, header_size);
+
+    // 分配缓冲区
+    uint8_t *buffer = (uint8_t *)malloc(I2S_BUFFER_SIZE);
+    if (buffer == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to allocate buffer memory");
+        fclose(f);
+        return;
+    }
+
+    int32_t *pcm_data = (int32_t *)malloc(I2S_BUFFER_SIZE);
+    if (pcm_data == NULL)
+    {
+        ESP_LOGE(TAG, "Failed to allocate PCM memory");
+        free(buffer);
+        fclose(f);
+        return;
+    }
+
+    size_t total_bytes_read = 0;
+    size_t bytes_read;
+
+    // 循环读取文件数据并播放
+    while (total_bytes_read < (file_size - header_size))
+    {
+        // 确保读取的数据对齐到样本边界
+        size_t bytes_to_read = ((file_size - header_size - total_bytes_read) > I2S_BUFFER_SIZE) ? I2S_BUFFER_SIZE : (file_size - header_size - total_bytes_read);
+        bytes_to_read -= (bytes_to_read % sizeof(int32_t)); // 对齐到32位样本边界
+
+        bytes_read = fread(buffer, 1, bytes_to_read, f);
+        if (bytes_read == 0)
         {
-            size_t bytes_to_read = (file_size - total_bytes_read) > I2S_BUFFER_SIZE ? I2S_BUFFER_SIZE : (file_size - total_bytes_read);
-            bytes_read = fread(buffer, 1, bytes_to_read, f);
-
-            if (bytes_read > 0)
+            if (feof(f))
             {
-                int32_t *pcm_data = (int32_t *)malloc(I2S_BUFFER_SIZE);
-                if (!pcm_data)
-                {
-                    ESP_LOGE(TAG, "Failed to allocate memory for PCM data");
-                    break;
-                }
-                size_t pcm_data_size = convert_wav_to_pcm(buffer, bytes_read, pcm_data);
-                ESP_LOGI(TAG, "bytes_read: %zu", bytes_read);
-                ESP_LOGI(TAG, "PCM data size: %zu", pcm_data_size);
-
-                if (pcm_data_size > 0)
-                {
-                    play_audio(pcm_data, pcm_data_size);
-                    free(pcm_data);
-                }
-                else
-                {
-                    ESP_LOGE(TAG, "Failed to convert WAV to PCM, total bytes read: %zu", total_bytes_read);
-                }
-
-                total_bytes_read += bytes_read;
+                ESP_LOGI(TAG, "End of file reached");
             }
             else
             {
-                ESP_LOGE(TAG, "Failed to read file: %s", files[index].name);
-                break;
+                ESP_LOGE(TAG, "Error reading file");
             }
+            break;
         }
-        free(buffer);
-        fclose(f);
+
+        size_t pcm_data_size = convert_wav_to_pcm(buffer, bytes_read, pcm_data);
+        if (pcm_data_size > 0)
+        {
+            play_audio(pcm_data, pcm_data_size);
+        }
+        else
+        {
+            ESP_LOGE(TAG, "Failed to convert WAV to PCM");
+        }
+
+        total_bytes_read += bytes_read;
     }
-    else
-    {
-        ESP_LOGE(TAG, "Failed to open file: %s", files[index].name);
-    }
+
+    // 释放资源
+    free(buffer);
+    free(pcm_data);
+    fclose(f);
+
+    ESP_LOGI(TAG, "File playback complete");
 
     // Unmount SD card and clean up
     esp_vfs_fat_sdcard_unmount(mount_point, card);
@@ -244,7 +305,7 @@ void openFile(int index)
     // Deinitialize the bus after all devices are removed
     spi_bus_free(host.slot);
 
-    // Deinitialize the power control driver if it was used
+// Deinitialize the power control driver if it was used
 #if CONFIG_EXAMPLE_SD_PWR_CTRL_LDO_INTERNAL_IO
     ret = sd_pwr_ctrl_del_on_chip_ldo(pwr_ctrl_handle);
     if (ret != ESP_OK)

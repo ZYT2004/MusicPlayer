@@ -20,6 +20,7 @@ void getSongByIndex(int index,char* prevName, file_info_t* curSong, char* nextNa
 void list_files(const char *path, file_info_t files[MAX_FILES], int *file_count);
 void openFile(int index);
 void init_sd(void);
+size_t parse_wav_header(FILE *f);
 // Add your function declarations and definitions here
 
 #endif 

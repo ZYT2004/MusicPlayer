@@ -27,24 +27,6 @@ void init_i2s_g()
     ESP_ERROR_CHECK(i2s_set_pin(I2S_NUM_0, &pin_config));
     ESP_LOGI("I2S", "I2S driver initialized");
 }
-// 简单的去噪处理函数
-void denoise_pcm_data(int32_t *pcm_data, size_t data_size)
-{
-    // 噪声阈值
-    const int32_t noise_threshold = 100; // 根据需要调整阈值
-
-    // 计算样本数
-    size_t num_samples = data_size / sizeof(int32_t);
-
-    // 遍历所有样本并进行去噪处理
-    for (size_t i = 0; i < num_samples; i++)
-    {
-        if (pcm_data[i] < noise_threshold && pcm_data[i] > -noise_threshold)
-        {
-            pcm_data[i] = 0;
-        }
-    }
-}
 void play_audio(int32_t *pcm_data, size_t data_size)
 {
     if (!pcm_data || data_size == 0)
@@ -61,8 +43,6 @@ void play_audio(int32_t *pcm_data, size_t data_size)
         ESP_LOGE("I2S", "Data size is not a multiple of 4, invalid 32-bit PCM data");
         return;
     }
-    // 对 PCM 数据进行去噪处理
-    denoise_pcm_data(pcm_data, data_size);
 
     // 将 PCM 数据写入 I2S
     esp_err_t res = i2s_write(I2S_NUM, pcm_data, data_size, &bytes_written, portMAX_DELAY);
