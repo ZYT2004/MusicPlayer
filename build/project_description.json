@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "music_player",
-    "project_version":    "43623b0-dirty",
+    "project_version":    "4376746-dirty",
     "project_path":       "D:/Users/14913/Downloads/sdspi",
     "idf_path":           "D:/v5.3.2/esp-idf",
     "build_dir":          "D:/Users/14913/Downloads/sdspi/build",
